@@ -1,4 +1,5 @@
-from torch import nn
+from torch import conv2d, nn
+import torch
 
 
 class DoubleConv(nn.Module):
@@ -34,26 +35,15 @@ class DoubleConv(nn.Module):
         return self.double_conv(x)
 
 
-class OutConv(nn.Module):
-    def __init__(self, in_channels, out_channels):
-        super().__init__()
-        self.conv = nn.Conv2d(in_channels, out_channels, kernel_size=1)
-
-    def forward(self, x):
-        return self.conv(x)
-
-
 class DownSample(nn.Module):
 
-    def __init__(self, in_channel, out_channel):
+    def __init__(self, channel):
         super().__init__()
         # 最大池化没有特征提取能力，丢失特征太多
         # 这里改成用3x3，步长为2的卷积进行下采样
         self.down_sample = nn.Sequential(
-            nn.Conv2d(
-                in_channel, out_channel, kernel_size=3, stride=2, padding=1, bias=False
-            ),
-            nn.BatchNorm2d(out_channel),
+            nn.Conv2d(channel, channel, kernel_size=3, stride=2, padding=1, bias=False),
+            nn.BatchNorm2d(channel),
             nn.ReLU(inplace=True),
         )
 
@@ -61,10 +51,23 @@ class DownSample(nn.Module):
         return self.down_sample(x)
 
 
-class Up(nn.Module):
-    def __init__(self, in_channel, out_channel, bilinear=True):
+class UpSample(nn.Module):
+    def __init__(self, channel):
         super().__init__()
+        self.up_sample = nn.Sequential(
+            nn.Upsample(scale_factor=2, mode="biliner", align_corners=True),
+            nn.Conv2d(channel, channel // 2, kernel_size=1, padding=1, stride=1),
+        )
 
-        if bilinear:
-            self.up = nn.Upsample(scale_factor=2, mode="biliner", align_corners=True)
-            self.conv = DoubleConv(in_channel, out_channel, in_channel // 2)
+    def forward(self, encoder_featuer_map):
+        out = self.up_sample
+        out = torch.cat([out, encoder_featuer_map], dim=1)
+
+
+class OutConv(nn.Module):
+    def __init__(self, in_channels, out_channels):
+        super().__init__()
+        self.conv = nn.Conv2d(in_channels, out_channels, kernel_size=1)
+
+    def forward(self, x):
+        return self.conv(x)
