@@ -4,9 +4,9 @@ from torch import nn
 
 
 class UNet(nn.Module):
-    def __init__(self):
+    def __init__(self, in_channels=3, out_classes=2):
         super().__init__()
-        self.conv1 = DoubleConv(3, 64)
+        self.conv1 = DoubleConv(in_channels, 64)
         self.down_sample1 = DownSample(64)
         self.conv2 = DoubleConv(64, 128)
         self.down_sample2 = DownSample(128)
@@ -23,7 +23,7 @@ class UNet(nn.Module):
         self.conv8 = DoubleConv(256, 128)
         self.up_sample4 = UpSample(128)
         self.conv9 = DoubleConv(128, 64)
-        self.out = OutConv(64, 2)
+        self.out = OutConv(64, out_classes)
 
     def forward(self, x):
         run1 = self.conv1(x)
@@ -38,17 +38,17 @@ class UNet(nn.Module):
         final_run = self.out(run9)
         return final_run
 
-    # def use_checkpointing(self):
-    #     """Save the memory, but increase the runnig time."""
+    def use_checkpoint(self):
+        """Save the memory, but increase the runnig time."""
 
-    #     self.conv1 = checkpoint(self.conv1)
-    #     self.down_sample1 = checkpoint(self.down_sample1)
-    #     self.conv2 = checkpoint(self.conv2)
-    #     self.down_sample2 = checkpoint(self.down_sample2)
-    #     self.conv3 = checkpoint(self.conv3)
-    #     self.down_sample3 = checkpoint(self.down_sample3)
-    #     self.conv4 = checkpoint(self.conv4)
-    #     self.down_sample4 = checkpoint(self.down_sample4)
-    #     self.conv5 = checkpoint(self.conv5)
-    #     self.up_sample1 = checkpoint(self.up_sample1)
-    #     self.conv6 = checkpoint(self.conv6)
+        self.conv1 = checkpoint(self.conv1)
+        self.down_sample1 = checkpoint(self.down_sample1)
+        self.conv2 = checkpoint(self.conv2)
+        self.down_sample2 = checkpoint(self.down_sample2)
+        self.conv3 = checkpoint(self.conv3)
+        self.down_sample3 = checkpoint(self.down_sample3)
+        self.conv4 = checkpoint(self.conv4)
+        self.down_sample4 = checkpoint(self.down_sample4)
+        self.conv5 = checkpoint(self.conv5)
+        self.up_sample1 = checkpoint(self.up_sample1)
+        self.conv6 = checkpoint(self.conv6)
