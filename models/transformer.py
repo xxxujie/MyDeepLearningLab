@@ -3,8 +3,6 @@ import torch
 from torch import Tensor, nn
 from torch.nn import functional as F
 
-nn.MultiheadAttention
-
 
 class MultiHeadAttention(nn.Module):
     def __init__(self, embedding_dim, head_count):
