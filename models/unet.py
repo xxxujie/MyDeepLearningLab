@@ -1,6 +1,9 @@
 import torch
 from torch.utils import checkpoint
-from torch import nn, conv2d
+from torch import nn
+
+
+__all__ = ["UNet"]
 
 
 class UNet(nn.Module):
