@@ -1,0 +1,3 @@
+project_dir: "/workspace/MyDeepLearningLab"
+
+log_path: "logs/app.log"

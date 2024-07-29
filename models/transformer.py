@@ -4,9 +4,6 @@ from torch import nn, Tensor
 from torch.nn import functional as F
 
 
-__all__ = ["Encoder", "Decoder", "Transformer"]
-
-
 def _mha_shape_check(query: Tensor, key: Tensor, value: Tensor) -> bool:
     """检查MHA各个输入Tensor的形状。
 

@@ -3,9 +3,6 @@ from torch.utils import checkpoint
 from torch import nn
 
 
-__all__ = ["UNet"]
-
-
 class UNet(nn.Module):
     def __init__(self, in_channels=3, out_classes=2):
         super().__init__()

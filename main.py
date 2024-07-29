@@ -1,20 +1,18 @@
 import argparse
-import json
-
-
-def load_config(path):
-    with open(path, "r", encoding="utf-8") as f:
-        config = json.load(f)
-    return config
+import os
+from utils import data
 
 
 def main(args):
-    train_config = load_config(args.train_config_path)
-    model_config = load_config(args.model_config_path)
+    # train_config = load_config(args.train_config_path)
+    # model_config = load_config(args.model_config_path)
 
-    learning_rate = train_config["learning_rate"]
-    print(learning_rate)
-    print(model_config)
+    # learning_rate = train_config["learning_rate"]
+    # print(learning_rate)
+    # print(model_config)
+
+    yaml_config = data.load_config("./configs/project_conf.yaml")
+    print(os.path.join(yaml_config["project_dir"], yaml_config["log_path"]))
 
 
 if __name__ == "__main__":
