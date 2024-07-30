@@ -1,11 +1,11 @@
 import torch
+import settings
 from torch.utils import checkpoint
 from torch import nn
-from ..helpers.configs import config_handler
 from ..utils.loggers import MyLogger
 
 
-logger = MyLogger(__name__, config_handler.project_conf["log_path"]).get_logger()
+logger = MyLogger(__name__, settings.LOG_PATH).get_logger()
 logger.info("test")
 
 
