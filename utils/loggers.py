@@ -32,6 +32,9 @@ class MyLogger:
         logger.addHandler(logger_file_handler)
         return logger
 
+    def get_logger(self):
+        return self._logger
+
     def debug(self, msg, *args):
         self._logger.debug(msg, *args)
 
