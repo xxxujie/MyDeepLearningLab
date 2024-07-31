@@ -1,7 +1,13 @@
 # Settings
-import os
-
-
+# 项目根目录
 PROJECT_DIR = "/workspace/MyDeepLearningLab"
 
-LOG_PATH = os.path.join(PROJECT_DIR, "logs/app.log")
+# 配置文件查找目录
+CONFIG_DIRS = [
+    PROJECT_DIR,
+    f"{PROJECT_DIR}/configs",
+    f"{PROJECT_DIR}/resources/configs",
+]
+
+# 日志目录
+LOG_DIR = f"{PROJECT_DIR}/logs"
