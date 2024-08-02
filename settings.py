@@ -2,6 +2,8 @@
 # 项目根目录
 PROJECT_DIR = "/workspace/MyDeepLearningLab"
 
+LOGGING_CONFIG_PATH = f"{PROJECT_DIR}/configs/logger_conf.yaml"
+
 # 配置文件查找目录
 CONFIG_DIRS = [
     PROJECT_DIR,
