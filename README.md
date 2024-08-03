@@ -1,4 +1,6 @@
-# Python 项目模板
+# My Deeplearning Lab
+
+学习深度学习过程中的一些思考以及代码实现。
 
 ## 配置文件
 
