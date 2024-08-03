@@ -11,7 +11,7 @@ def main():
     tgt = torch.LongTensor([[1, 3, 4, 5, 6, 7, 8, 2, 0, 0]])
     transformer = Transformer(20, 20, 10, 10)
     output = transformer(src, tgt)
-    return output
+    logger.info(output)
 
 
 if __name__ == "__main__":
@@ -22,6 +22,4 @@ if __name__ == "__main__":
     if args.config_dir != "":
         settings.USER_CONFIG_DIRS.insert(0, args.config_dir)
     logger = loggers.get_logger()
-
-    output = main()
-    logger.info(output.shape)
+    main()

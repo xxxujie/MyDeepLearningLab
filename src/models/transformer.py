@@ -358,7 +358,7 @@ class Decoder(nn.Module):
         output = self.embedding(input)
         for layer in self.decoder_layers:
             output = layer(output, encoder_output, src_tgt_mask, tgt_mask)
-        # output = self.full_connection(output)
+        output = self.full_connection(output)
         return output
 
 
