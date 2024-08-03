@@ -1,12 +1,10 @@
 import torch
-import settings
 from torch.utils import checkpoint
 from torch import nn
-from ..utils.loggers import MyLogger
+from common.utils import loggers
 
 
-logger = MyLogger(__name__, settings.LOG_PATH).get_logger()
-logger.info("test")
+logger = loggers.get_logger()
 
 
 class UNet(nn.Module):
